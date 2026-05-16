@@ -9,7 +9,7 @@ Spring Boot Starter For WebMvc With Swagger2
 ### Maven
 
 	<dependency>
-		<groupId>com.github.hiwepy</groupId>
+		<groupId>io.github.hiwepy</groupId>
 		<artifactId>webmvc-swagger2-spring-boot-starter</artifactId>
 		<version>1.0.5-SNAPSHOT</version>
 	</dependency>
