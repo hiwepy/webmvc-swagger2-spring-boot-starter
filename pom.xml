@@ -430,6 +430,7 @@
         <webjars-locator.version>0.40</webjars-locator.version>
         <webjars-locator-core.version>0.46</webjars-locator-core.version>
         <classgraph.version>4.8.102</classgraph.version>
+                <slf4j.version>2.0.18</slf4j.version>
     </properties>
     
     <dependencyManagement>
@@ -620,7 +621,12 @@
                 <version>${classgraph.version}</version>
             </dependency>
                         
-        </dependencies>
+                <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+</dependencies>
     </dependencyManagement>
     
     <dependencies>
@@ -644,7 +650,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.13</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- Core starter, including auto-configuration support, logging and YAML -->
