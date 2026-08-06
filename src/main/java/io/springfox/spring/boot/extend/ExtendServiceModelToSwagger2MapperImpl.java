@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
+ * Copyright (c) 2018, hiwepy (https://github.com/easy-4-java).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -41,7 +41,7 @@ import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl
 /**
  * TODO
  * 
- * @author ： <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author ： <a href="https://github.com/easy-4-java">hiwepy</a>
  */
 @Slf4j
 public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagger2MapperImpl {
