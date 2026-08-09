@@ -18,6 +18,8 @@ package io.springfox.spring.boot.extend;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,7 +36,6 @@ import io.swagger.models.properties.MapProperty;
 import io.swagger.models.properties.Property;
 import io.swagger.models.properties.RefProperty;
 import io.swagger.models.properties.StringProperty;
-import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.service.Documentation;
 import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl;
 
@@ -46,8 +47,9 @@ import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Slf4j
 public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagger2MapperImpl {
+
+	private static final Logger log = LoggerFactory.getLogger(ExtendServiceModelToSwagger2MapperImpl.class);
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -78,7 +80,7 @@ public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
 				props.put("data", newProp);
 			}
 		}
-		
+
 		// Enhance response properties
 		while (it.hasNext()) {
 			Map.Entry<String, Model> entry = it.next();
@@ -137,7 +139,7 @@ public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
 				}
 			}
 		}
-		
+
 		try {
 			log.debug("swagger:{}", objectMapper.writeValueAsString(swagger));
 		} catch (JsonProcessingException e) {

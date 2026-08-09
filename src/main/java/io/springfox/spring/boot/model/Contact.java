@@ -15,15 +15,12 @@
  */
 package io.springfox.spring.boot.model;
 
-import lombok.Data;
-
 /**
  * Contact information for the API documentation.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Data
 public class Contact {
 
 	/**
@@ -38,5 +35,34 @@ public class Contact {
 	 * Contact email.
 	 **/
 	private String email = "";
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Contact{name='" + name + "', url='" + url + "', email='" + email + "'}";
+	}
 
 }

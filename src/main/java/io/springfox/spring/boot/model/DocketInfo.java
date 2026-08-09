@@ -18,15 +18,12 @@ package io.springfox.spring.boot.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
-
 /**
  * Configuration for a single Swagger documentation group.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Data
 public class DocketInfo {
 
 	/**
@@ -85,5 +82,122 @@ public class DocketInfo {
 	 * Parameter types to be ignored by Swagger for this group.
 	 **/
 	private List<Class<?>> ignoredParameterTypes = new ArrayList<>();
+
+	public boolean isEnableUrlTemplating() {
+		return enableUrlTemplating;
+	}
+
+	public void setEnableUrlTemplating(boolean enableUrlTemplating) {
+		this.enableUrlTemplating = enableUrlTemplating;
+	}
+
+	public boolean isForCodeGen() {
+		return forCodeGen;
+	}
+
+	public void setForCodeGen(boolean forCodeGen) {
+		this.forCodeGen = forCodeGen;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getLicense() {
+		return license;
+	}
+
+	public void setLicense(String license) {
+		this.license = license;
+	}
+
+	public String getLicenseUrl() {
+		return licenseUrl;
+	}
+
+	public void setLicenseUrl(String licenseUrl) {
+		this.licenseUrl = licenseUrl;
+	}
+
+	public String getTermsOfServiceUrl() {
+		return termsOfServiceUrl;
+	}
+
+	public void setTermsOfServiceUrl(String termsOfServiceUrl) {
+		this.termsOfServiceUrl = termsOfServiceUrl;
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public String getBasePackage() {
+		return basePackage;
+	}
+
+	public void setBasePackage(String basePackage) {
+		this.basePackage = basePackage;
+	}
+
+	public String getBasePathPattern() {
+		return basePathPattern;
+	}
+
+	public void setBasePathPattern(String basePathPattern) {
+		this.basePathPattern = basePathPattern;
+	}
+
+	public List<GlobalOperationParameter> getGlobalOperationParameters() {
+		return globalOperationParameters;
+	}
+
+	public void setGlobalOperationParameters(List<GlobalOperationParameter> globalOperationParameters) {
+		this.globalOperationParameters = globalOperationParameters;
+	}
+
+	public List<Class<?>> getIgnoredParameterTypes() {
+		return ignoredParameterTypes;
+	}
+
+	public void setIgnoredParameterTypes(List<Class<?>> ignoredParameterTypes) {
+		this.ignoredParameterTypes = ignoredParameterTypes;
+	}
+
+	@Override
+	public String toString() {
+		return "DocketInfo{name='" + name + "', title='" + title + "', basePackage='" + basePackage + "'}";
+	}
 
 }

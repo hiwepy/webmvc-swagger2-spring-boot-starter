@@ -1,205 +1,98 @@
-/*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package io.springfox.spring.boot;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import io.springfox.spring.boot.model.Authorization;
+import io.springfox.spring.boot.model.Contact;
+import io.springfox.spring.boot.model.DocketInfo;
+import io.springfox.spring.boot.model.GlobalOperationParameter;
+import io.springfox.spring.boot.model.GlobalResponseMessage;
+import io.springfox.spring.boot.model.UiConfig;
+
 /**
- * Unit tests for {{ @link Swagger2WebMvcProperties }}.
- *
- * <p>Verifies default values, getters/setters and POJO contract.</p>
+ * Tests for {@link Swagger2WebMvcProperties}.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
 @DisplayName("Swagger2WebMvcProperties Tests")
 class Swagger2WebMvcPropertiesTest {
-    @Test
-    @DisplayName("Default constructor creates non-null instance")
-    void testDefaultInstance() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        assertThat(props).isNotNull();
+
+    private Swagger2WebMvcProperties props;
+
+    @BeforeEach
+    void setUp() {
+        props = new Swagger2WebMvcProperties();
+    }
+
+    @Nested
+    @DisplayName("Default values")
+    class DefaultValues {
+
+        @Test void defaultEnabled() { assertThat(props.isEnabled()).isFalse(); }
+        @Test void defaultEnableUrlTemplating() { assertThat(props.isEnableUrlTemplating()).isFalse(); }
+        @Test void defaultForCodeGen() { assertThat(props.isForCodeGen()).isFalse(); }
+        @Test void defaultTitle() { assertThat(props.getTitle()).isEmpty(); }
+        @Test void defaultDescription() { assertThat(props.getDescription()).isEmpty(); }
+        @Test void defaultVersion() { assertThat(props.getVersion()).isEmpty(); }
+        @Test void defaultLicense() { assertThat(props.getLicense()).isEmpty(); }
+        @Test void defaultLicenseUrl() { assertThat(props.getLicenseUrl()).isEmpty(); }
+        @Test void defaultTermsOfServiceUrl() { assertThat(props.getTermsOfServiceUrl()).isEmpty(); }
+        @Test void defaultIgnoredParameterTypes() { assertThat(props.getIgnoredParameterTypes()).isEmpty(); }
+        @Test void defaultContact() { assertThat(props.getContact()).isNotNull(); }
+        @Test void defaultBasePackage() { assertThat(props.getBasePackage()).isEmpty(); }
+        @Test void defaultBasePathPattern() { assertThat(props.getBasePathPattern()).isEmpty(); }
+        @Test void defaultHost() { assertThat(props.getHost()).isEmpty(); }
+        @Test void defaultGroups() { assertThat(props.getGroups()).isEmpty(); }
+        @Test void defaultGlobalOperationParameters() { assertThat(props.getGlobalOperationParameters()).isNull(); }
+        @Test void defaultUiConfig() { assertThat(props.getUiConfig()).isNotNull(); }
+        @Test void defaultApplyDefaultResponseMessages() { assertThat(props.isApplyDefaultResponseMessages()).isTrue(); }
+        @Test void defaultGlobalResponseMessage() { assertThat(props.getGlobalResponseMessage()).isNull(); }
+        @Test void defaultAuthorization() { assertThat(props.getAuthorization()).isNotNull(); }
+        @Test void prefixConstant() { assertThat(Swagger2WebMvcProperties.PREFIX).isEqualTo("swagger"); }
+
+    }
+
+    @Nested
+    @DisplayName("Setters and getters")
+    class SettersAndGetters {
+
+        @Test void setEnabled() { props.setEnabled(true); assertThat(props.isEnabled()).isTrue(); }
+        @Test void setEnableUrlTemplating() { props.setEnableUrlTemplating(true); assertThat(props.isEnableUrlTemplating()).isTrue(); }
+        @Test void setForCodeGen() { props.setForCodeGen(true); assertThat(props.isForCodeGen()).isTrue(); }
+        @Test void setTitle() { props.setTitle("My API"); assertThat(props.getTitle()).isEqualTo("My API"); }
+        @Test void setDescription() { props.setDescription("desc"); assertThat(props.getDescription()).isEqualTo("desc"); }
+        @Test void setVersion() { props.setVersion("1.0"); assertThat(props.getVersion()).isEqualTo("1.0"); }
+        @Test void setLicense() { props.setLicense("Apache"); assertThat(props.getLicense()).isEqualTo("Apache"); }
+        @Test void setLicenseUrl() { props.setLicenseUrl("http://example.com"); assertThat(props.getLicenseUrl()).isEqualTo("http://example.com"); }
+        @Test void setTermsOfServiceUrl() { props.setTermsOfServiceUrl("http://tos"); assertThat(props.getTermsOfServiceUrl()).isEqualTo("http://tos"); }
+        @Test void setIgnoredParameterTypes() { List<Class<?>> l = new ArrayList<>(); l.add(String.class); props.setIgnoredParameterTypes(l); assertThat(props.getIgnoredParameterTypes()).containsExactly(String.class); }
+        @Test void setContact() { Contact c = new Contact(); c.setName("T"); props.setContact(c); assertThat(props.getContact().getName()).isEqualTo("T"); }
+        @Test void setBasePackage() { props.setBasePackage("com.example"); assertThat(props.getBasePackage()).isEqualTo("com.example"); }
+        @Test void setBasePathPattern() { props.setBasePathPattern("/api/**"); assertThat(props.getBasePathPattern()).isEqualTo("/api/**"); }
+        @Test void setHost() { props.setHost("localhost:8080"); assertThat(props.getHost()).isEqualTo("localhost:8080"); }
+        @Test void setGroups() { List<DocketInfo> g = new ArrayList<>(); g.add(new DocketInfo()); props.setGroups(g); assertThat(props.getGroups()).hasSize(1); }
+        @Test void setGlobalOperationParameters() { List<GlobalOperationParameter> p = new ArrayList<>(); p.add(new GlobalOperationParameter()); props.setGlobalOperationParameters(p); assertThat(props.getGlobalOperationParameters()).hasSize(1); }
+        @Test void setUiConfig() { UiConfig u = new UiConfig(); props.setUiConfig(u); assertThat(props.getUiConfig()).isSameAs(u); }
+        @Test void setApplyDefaultResponseMessages() { props.setApplyDefaultResponseMessages(false); assertThat(props.isApplyDefaultResponseMessages()).isFalse(); }
+        @Test void setGlobalResponseMessage() { GlobalResponseMessage m = new GlobalResponseMessage(); props.setGlobalResponseMessage(m); assertThat(props.getGlobalResponseMessage()).isSameAs(m); }
+        @Test void setAuthorization() { Authorization a = new Authorization(); props.setAuthorization(a); assertThat(props.getAuthorization()).isSameAs(a); }
+
     }
 
     @Test
-    @DisplayName("Field 'enabled' can be set and read")
-    void testEnabledField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("enabled");
-            f.setAccessible(true);
-            f.set(props, true);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
+    void toStringContainsKeyFields() {
+        props.setTitle("Test API");
+        props.setBasePackage("com.example");
+        assertThat(props.toString()).contains("Test API").contains("com.example");
     }
 
-    @Test
-    @DisplayName("Field 'enableUrlTemplating' can be set and read")
-    void testEnableUrlTemplatingField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("enableUrlTemplating");
-            f.setAccessible(true);
-            f.set(props, true);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'forCodeGen' can be set and read")
-    void testForCodeGenField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("forCodeGen");
-            f.setAccessible(true);
-            f.set(props, true);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'title' can be set and read")
-    void testTitleField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("title");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'description' can be set and read")
-    void testDescriptionField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("description");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'version' can be set and read")
-    void testVersionField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("version");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'license' can be set and read")
-    void testLicenseField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("license");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'licenseUrl' can be set and read")
-    void testLicenseUrlField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("licenseUrl");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'termsOfServiceUrl' can be set and read")
-    void testTermsOfServiceUrlField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("termsOfServiceUrl");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'ignoredParameterTypes' can be set and read")
-    void testIgnoredParameterTypesField() {
-        Swagger2WebMvcProperties props = new Swagger2WebMvcProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Swagger2WebMvcProperties.class.getDeclaredField("ignoredParameterTypes");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Public constant 'PREFIX' has expected value")
-    void testPREFIXConstant() {
-        assertThat(Swagger2WebMvcProperties.PREFIX).isEqualTo("swagger");
-    }
 }

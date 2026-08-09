@@ -15,8 +15,6 @@
  */
 package io.springfox.spring.boot.model;
 
-import lombok.Data;
-
 /**
  * Global Swagger authorization configuration. <p>Configures one of the supported
  * {@code securitySchemes} types (ApiKey, BasicAuth or None).</p>
@@ -24,7 +22,6 @@ import lombok.Data;
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Data
 public class Authorization {
 
 	/**
@@ -47,5 +44,42 @@ public class Authorization {
 	 * Regular expression of URLs for which authorization is enabled.
 	 */
 	private String authRegex = "^.*$";
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public AuthorizationTypeEnum getType() {
+		return type;
+	}
+
+	public void setType(AuthorizationTypeEnum type) {
+		this.type = type;
+	}
+
+	public String getKeyName() {
+		return keyName;
+	}
+
+	public void setKeyName(String keyName) {
+		this.keyName = keyName;
+	}
+
+	public String getAuthRegex() {
+		return authRegex;
+	}
+
+	public void setAuthRegex(String authRegex) {
+		this.authRegex = authRegex;
+	}
+
+	@Override
+	public String toString() {
+		return "Authorization{name='" + name + "', type=" + type + ", keyName='" + keyName + "', authRegex='" + authRegex + "'}";
+	}
 
 }

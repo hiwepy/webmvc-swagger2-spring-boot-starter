@@ -15,15 +15,12 @@
  */
 package io.springfox.spring.boot.model;
 
-import lombok.Data;
-
 /**
  * Definition of a global Swagger operation parameter.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Data
 public class GlobalOperationParameter {
 
 	/**
@@ -76,5 +73,90 @@ public class GlobalOperationParameter {
 	 * Example scalar value for the parameter.
 	 **/
 	private Object scalarExample;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+
+	public String getModelRef() {
+		return modelRef;
+	}
+
+	public void setModelRef(String modelRef) {
+		this.modelRef = modelRef;
+	}
+
+	public String getParameterType() {
+		return parameterType;
+	}
+
+	public void setParameterType(String parameterType) {
+		this.parameterType = parameterType;
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public String getPattern() {
+		return pattern;
+	}
+
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
+	}
+
+	public boolean isAllowEmptyValue() {
+		return allowEmptyValue;
+	}
+
+	public void setAllowEmptyValue(boolean allowEmptyValue) {
+		this.allowEmptyValue = allowEmptyValue;
+	}
+
+	public Object getScalarExample() {
+		return scalarExample;
+	}
+
+	public void setScalarExample(Object scalarExample) {
+		this.scalarExample = scalarExample;
+	}
+
+	@Override
+	public String toString() {
+		return "GlobalOperationParameter{name='" + name + "', description='" + description + "', modelRef='" + modelRef + "'}";
+	}
 
 }

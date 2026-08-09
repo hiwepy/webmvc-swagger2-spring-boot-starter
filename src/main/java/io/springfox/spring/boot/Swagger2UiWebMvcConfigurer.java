@@ -3,7 +3,7 @@ package io.springfox.spring.boot;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.WebJarsResourceResolver;
+import org.springframework.web.servlet.resource.LiteWebJarsResourceResolver;
 
 /**
  * WebMVC configurer that exposes Swagger UI static resources. <p>Maps the
@@ -29,7 +29,7 @@ public class Swagger2UiWebMvcConfigurer implements WebMvcConfigurer {
 		registry.addResourceHandler("/doc.html").addResourceLocations(META_INF_RESOURCES).resourceChain(false);;
 		if(!registry.hasMappingForPattern("/webjars/**")) {
 			registry.addResourceHandler("/webjars/**").addResourceLocations(META_INF_WEBJAR_RESOURCES)
-				.resourceChain(false).addResolver(new WebJarsResourceResolver());
+				.resourceChain(false).addResolver(new LiteWebJarsResourceResolver());
 		}
 	}
 

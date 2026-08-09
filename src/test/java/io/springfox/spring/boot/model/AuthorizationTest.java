@@ -1,27 +1,14 @@
-/*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package io.springfox.spring.boot.model;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
 /**
- * Unit tests for {{ @link Authorization }}.
+ * Tests for {@link Authorization}.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
@@ -29,10 +16,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Authorization Tests")
 class AuthorizationTest {
 
-    @Test
-    @DisplayName("Instance can be created via constructor")
-    void testInstantiation() {
-        Authorization instance = new Authorization();
-        assertThat(instance).isNotNull();
+    private Authorization auth;
+
+    @BeforeEach
+    void setUp() {
+        auth = new Authorization();
     }
+
+    @Nested
+    @DisplayName("Default values")
+    class DefaultValues {
+
+        @Test void defaultName() { assertThat(auth.getName()).isEqualTo("X-Authorization"); }
+        @Test void defaultType() { assertThat(auth.getType()).isEqualTo(AuthorizationTypeEnum.APIKEY); }
+        @Test void defaultKeyName() { assertThat(auth.getKeyName()).isEqualTo("token"); }
+        @Test void defaultAuthRegex() { assertThat(auth.getAuthRegex()).isEqualTo("^.*$"); }
+
+    }
+
+    @Nested
+    @DisplayName("Setters and getters")
+    class SettersAndGetters {
+
+        @Test void setName() { auth.setName("Auth"); assertThat(auth.getName()).isEqualTo("Auth"); }
+        @Test void setType() { auth.setType(AuthorizationTypeEnum.BASICAUTH); assertThat(auth.getType()).isEqualTo(AuthorizationTypeEnum.BASICAUTH); }
+        @Test void setKeyName() { auth.setKeyName("X-Token"); assertThat(auth.getKeyName()).isEqualTo("X-Token"); }
+        @Test void setAuthRegex() { auth.setAuthRegex("/api/**"); assertThat(auth.getAuthRegex()).isEqualTo("/api/**"); }
+
+    }
+
+    @Test
+    void toStringContainsKeyFields() {
+        assertThat(auth.toString()).contains("X-Authorization").contains("APIKEY");
+    }
+
 }

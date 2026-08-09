@@ -296,6 +296,11 @@
                         </goals>
                         <configuration>
                             <haltOnFailure>true</haltOnFailure>
+                            <excludes>
+                                <!-- Depends on springfox internals (Docket, ApiInfo, etc.) -->
+                                <exclude>io/springfox/spring/boot/utils/Swagger2Utils.class</exclude>
+                                <exclude>io/springfox/spring/boot/extend/ExtendServiceModelToSwagger2MapperImpl*.class</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>
@@ -722,14 +727,6 @@
     <dependencies>
         
         
-        <!-- For Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        
-        
         <!-- For Servlet Api -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -756,7 +753,28 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
+        <!-- For Spring Boot Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For JUnit Jupiter -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For Slf4j Simple (test logging) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- For Spring Boot Configuration Processor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

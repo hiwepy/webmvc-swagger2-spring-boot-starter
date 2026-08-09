@@ -15,15 +15,12 @@
  */
 package io.springfox.spring.boot.model;
 
-import lombok.Data;
-
 /**
  * A single global Swagger response message body.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Data
 public class GlobalResponseMessageBody {
 
 	/**
@@ -40,5 +37,34 @@ public class GlobalResponseMessageBody {
 	 * Response body model reference.
 	 **/
 	private String modelRef;
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getModelRef() {
+		return modelRef;
+	}
+
+	public void setModelRef(String modelRef) {
+		this.modelRef = modelRef;
+	}
+
+	@Override
+	public String toString() {
+		return "GlobalResponseMessageBody{code=" + code + ", message='" + message + "', modelRef='" + modelRef + "'}";
+	}
 
 }

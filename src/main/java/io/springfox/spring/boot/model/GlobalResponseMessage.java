@@ -18,55 +18,122 @@ package io.springfox.spring.boot.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
-
 /**
  * Global Swagger response messages per HTTP method.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
-@Data
 public class GlobalResponseMessage {
 
 	/**
 	 * Response message bodies for POST requests.
 	 **/
-	List<GlobalResponseMessageBody> post = new ArrayList<>();
+	private List<GlobalResponseMessageBody> post = new ArrayList<>();
 
 	/**
 	 * Response message bodies for GET requests.
 	 **/
-	List<GlobalResponseMessageBody> get = new ArrayList<>();
+	private List<GlobalResponseMessageBody> get = new ArrayList<>();
 
 	/**
 	 * Response message bodies for PUT requests.
 	 **/
-	List<GlobalResponseMessageBody> put = new ArrayList<>();
+	private List<GlobalResponseMessageBody> put = new ArrayList<>();
 
 	/**
 	 * Response message bodies for PATCH requests.
 	 **/
-	List<GlobalResponseMessageBody> patch = new ArrayList<>();
+	private List<GlobalResponseMessageBody> patch = new ArrayList<>();
 
 	/**
 	 * Response message bodies for DELETE requests.
 	 **/
-	List<GlobalResponseMessageBody> delete = new ArrayList<>();
+	private List<GlobalResponseMessageBody> delete = new ArrayList<>();
 
 	/**
 	 * Response message bodies for HEAD requests.
 	 **/
-	List<GlobalResponseMessageBody> head = new ArrayList<>();
+	private List<GlobalResponseMessageBody> head = new ArrayList<>();
 
 	/**
 	 * Response message bodies for OPTIONS requests.
 	 **/
-	List<GlobalResponseMessageBody> options = new ArrayList<>();
+	private List<GlobalResponseMessageBody> options = new ArrayList<>();
 
 	/**
 	 * Response message bodies for TRACE requests.
 	 **/
-	List<GlobalResponseMessageBody> trace = new ArrayList<>();
+	private List<GlobalResponseMessageBody> trace = new ArrayList<>();
+
+	public List<GlobalResponseMessageBody> getPost() {
+		return post;
+	}
+
+	public void setPost(List<GlobalResponseMessageBody> post) {
+		this.post = post;
+	}
+
+	public List<GlobalResponseMessageBody> getGet() {
+		return get;
+	}
+
+	public void setGet(List<GlobalResponseMessageBody> get) {
+		this.get = get;
+	}
+
+	public List<GlobalResponseMessageBody> getPut() {
+		return put;
+	}
+
+	public void setPut(List<GlobalResponseMessageBody> put) {
+		this.put = put;
+	}
+
+	public List<GlobalResponseMessageBody> getPatch() {
+		return patch;
+	}
+
+	public void setPatch(List<GlobalResponseMessageBody> patch) {
+		this.patch = patch;
+	}
+
+	public List<GlobalResponseMessageBody> getDelete() {
+		return delete;
+	}
+
+	public void setDelete(List<GlobalResponseMessageBody> delete) {
+		this.delete = delete;
+	}
+
+	public List<GlobalResponseMessageBody> getHead() {
+		return head;
+	}
+
+	public void setHead(List<GlobalResponseMessageBody> head) {
+		this.head = head;
+	}
+
+	public List<GlobalResponseMessageBody> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<GlobalResponseMessageBody> options) {
+		this.options = options;
+	}
+
+	public List<GlobalResponseMessageBody> getTrace() {
+		return trace;
+	}
+
+	public void setTrace(List<GlobalResponseMessageBody> trace) {
+		this.trace = trace;
+	}
+
+	@Override
+	public String toString() {
+		return "GlobalResponseMessage{post=" + post + ", get=" + get + ", put=" + put + ", patch=" + patch
+				+ ", delete=" + delete + ", head=" + head + ", options=" + options + ", trace=" + trace + "}";
+	}
 
 }

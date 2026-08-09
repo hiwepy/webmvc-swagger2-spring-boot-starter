@@ -1,27 +1,15 @@
-/*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package io.springfox.spring.boot.model;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
- * Unit tests for {{ @link AuthorizationTypeEnum }}.
+ * Tests for {@link AuthorizationTypeEnum}.
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
@@ -30,9 +18,61 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AuthorizationTypeEnumTest {
 
     @Test
-    @DisplayName("Instance can be created via constructor")
-    void testInstantiation() {
-        AuthorizationTypeEnum instance = new AuthorizationTypeEnum();
-        assertThat(instance).isNotNull();
+    @DisplayName("APIKEY has correct type string")
+    void testApiKey() {
+        assertThat(AuthorizationTypeEnum.APIKEY.get()).isEqualTo("ApiKey");
     }
+
+    @Test
+    @DisplayName("BASICAUTH has correct type string")
+    void testBasicAuth() {
+        assertThat(AuthorizationTypeEnum.BASICAUTH.get()).isEqualTo("BasicAuth");
+    }
+
+    @Test
+    @DisplayName("NONE has correct type string")
+    void testNone() {
+        assertThat(AuthorizationTypeEnum.NONE.get()).isEqualTo("None");
+    }
+
+    @Test
+    @DisplayName("values() returns all constants")
+    void testValues() {
+        assertThat(AuthorizationTypeEnum.values()).hasSize(3);
+    }
+
+    @Test
+    @DisplayName("valueOfIgnoreCase finds APIKEY")
+    void testValueOfIgnoreCaseApiKey() {
+        assertThat(AuthorizationTypeEnum.valueOfIgnoreCase("ApiKey")).isEqualTo(AuthorizationTypeEnum.APIKEY);
+    }
+
+    @Test
+    @DisplayName("valueOfIgnoreCase is case-insensitive")
+    void testValueOfIgnoreCaseCaseInsensitive() {
+        assertThat(AuthorizationTypeEnum.valueOfIgnoreCase("apikey")).isEqualTo(AuthorizationTypeEnum.APIKEY);
+        assertThat(AuthorizationTypeEnum.valueOfIgnoreCase("BASICAUTH")).isEqualTo(AuthorizationTypeEnum.BASICAUTH);
+    }
+
+    @Test
+    @DisplayName("valueOfIgnoreCase throws for unknown type")
+    void testValueOfIgnoreCaseUnknown() {
+        assertThatThrownBy(() -> AuthorizationTypeEnum.valueOfIgnoreCase("unknown"))
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    @DisplayName("equals(AuthorizationTypeEnum) works")
+    void testEqualsEnum() {
+        assertThat(AuthorizationTypeEnum.APIKEY.equals(AuthorizationTypeEnum.APIKEY)).isTrue();
+        assertThat(AuthorizationTypeEnum.APIKEY.equals(AuthorizationTypeEnum.BASICAUTH)).isFalse();
+    }
+
+    @Test
+    @DisplayName("equals(String) works")
+    void testEqualsString() {
+        assertThat(AuthorizationTypeEnum.APIKEY.equals("ApiKey")).isTrue();
+        assertThat(AuthorizationTypeEnum.APIKEY.equals("BasicAuth")).isFalse();
+    }
+
 }
