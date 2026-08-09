@@ -39,20 +39,29 @@ import springfox.documentation.service.Documentation;
 import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl;
 
 /**
- * TODO
- * 
+ * Extended Swagger2 mapper that enriches generic response models. <p>Post-processes the
+ * generated {@link Swagger} definitions so that generic {@code ApiRestResponse<T>} models
+ * expose the actual type of their {@code data} property (e.g. arrays, references, maps).</p>
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 @Slf4j
 public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagger2MapperImpl {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
-	
+
+	/**
+	 * Maps the Springfox {@link Documentation} into a Swagger document, then enhances the
+	 * generic {@code ApiRestResponse} definitions.
+	 * @param from the Springfox documentation
+	 * @return the enhanced Swagger document
+	 */
 	@Override
 	public Swagger mapDocumentation(Documentation from) {
 		Swagger swagger = super.mapDocumentation(from);
 		log.debug("Definitions: {}", swagger.getDefinitions());
-		// 响应返回参数增强
+		// Enhance response properties
 		Iterator<Map.Entry<String, Model>> it = swagger.getDefinitions().entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry<String, Model> entry = it.next();
@@ -70,7 +79,7 @@ public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
 			}
 		}
 		
-		// 响应返回参数增强
+		// Enhance response properties
 		while (it.hasNext()) {
 			Map.Entry<String, Model> entry = it.next();
 			Model model = entry.getValue();
@@ -81,15 +90,15 @@ public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
 				if (dataProp.getType().equals("object")) {
 					String realType = SwaggerUtil.getRealType(key);
 					AbstractProperty newProp = null;
-					if (SwaggerUtil.hasRef(key)) { // 存在多级参照
+					if (SwaggerUtil.hasRef(key)) { // multi-level reference exists
 						String ref = SwaggerUtil.getRef(key);
-						/** List«T»,Set«T» 支持@See findAll()类型的查询 */
+						/** List«T», Set«T»: supports findAll()-style queries */
 						if (realType.startsWith("List«") || realType.startsWith("Set«")) {
 							newProp = new ArrayRefProperty();
 							BeanUtils.copyProperties(dataProp, newProp);
 							((ArrayRefProperty) newProp).set$ref(ref);
 							newProp.setType(ArrayRefProperty.TYPE);
-						} else if (realType.startsWith("DBResult«")) { // DBResult«T» 支持@See query()类型的查询
+						} else if (realType.startsWith("DBResult«")) { // DBResult«T»: supports query()-style queries
 							newProp = new RefProperty();
 							BeanUtils.copyProperties(dataProp, newProp);
 							((RefProperty) newProp).set$ref(realType);
@@ -102,7 +111,7 @@ public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
 							BeanUtils.copyProperties(dataProp, newProp);
 							((RefProperty) newProp).set$ref(ref);
 						}
-						// 不存在参照关系，则按常规实际的类型进行处理
+						// No reference relationship: handle the actual type
 					} else if (realType.contains("boolean")) {
 						newProp = new BooleanProperty();
 						BeanUtils.copyProperties(dataProp, newProp);

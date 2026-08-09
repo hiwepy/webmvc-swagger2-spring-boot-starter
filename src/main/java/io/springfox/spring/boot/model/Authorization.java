@@ -18,28 +18,33 @@ package io.springfox.spring.boot.model;
 import lombok.Data;
 
 /**
- * securitySchemes 支持方式之一 ApiKey
+ * Global Swagger authorization configuration. <p>Configures one of the supported
+ * {@code securitySchemes} types (ApiKey, BasicAuth or None).</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 @Data
 public class Authorization {
 
 	/**
-	 * 鉴权策略ID，对应 SecurityReferences ID
+	 * Authorization scheme id; matches the {@code SecurityReferences} id.
 	 */
 	private String name = "X-Authorization";
 
 	/**
-	 * 鉴权策略，可选 ApiKey | BasicAuth | None，默认ApiKey
+	 * Authorization scheme: one of {@code ApiKey}, {@code BasicAuth} or {@code None};
+	 * defaults to {@code ApiKey}.
 	 */
 	private AuthorizationTypeEnum type = AuthorizationTypeEnum.APIKEY;
 
 	/**
-	 * 鉴权传递的Header参数
+	 * Name of the header parameter that carries the authorization token.
 	 */
 	private String keyName = "token";
 
 	/**
-	 * 需要开启鉴权URL的正则
+	 * Regular expression of URLs for which authorization is enabled.
 	 */
 	private String authRegex = "^.*$";
 

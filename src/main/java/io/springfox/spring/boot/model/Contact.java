@@ -17,19 +17,25 @@ package io.springfox.spring.boot.model;
 
 import lombok.Data;
 
+/**
+ * Contact information for the API documentation.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Data
 public class Contact {
 
 	/**
-	 * 联系人
+	 * Contact name.
 	 **/
 	private String name = "";
 	/**
-	 * 联系人url
+	 * Contact URL.
 	 **/
 	private String url = "";
 	/**
-	 * 联系人email
+	 * Contact email.
 	 **/
 	private String email = "";
 

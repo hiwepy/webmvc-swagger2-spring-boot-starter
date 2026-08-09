@@ -31,6 +31,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Configuration properties for the Swagger2 WebMVC starter. <p>Binds the {@code swagger}
+ * prefix and exposes the documentation title, description, version, license, contact,
+ * base package, groups, global parameters, response messages and authorization settings.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @ConfigurationProperties(Swagger2WebMvcProperties.PREFIX)
 @Getter
 @Setter
@@ -40,46 +48,46 @@ public class Swagger2WebMvcProperties {
 	public static final String PREFIX = "swagger";
 
 	/**
-	 * 是否开启swagger
+	 * Whether Swagger is enabled.
 	 **/
 	private boolean enabled;
 	/**
-	 * when true it enables rfc6570 url templates
+	 * When {@code true} it enables rfc6570 url templates.
 	 */
 	private boolean enableUrlTemplating = false;
 	/**
-	 * Set this to true in order to make the documentation code generation friendly.
+	 * Set this to {@code true} in order to make the documentation code generation friendly.
 	 *
-	 * true|false determines the naming strategy used
+	 * {@code true}|{@code false} determines the naming strategy used.
 	 */
 	private boolean forCodeGen = false;
 	/**
-	 * 标题
+	 * Documentation title.
 	 **/
 	private String title = "";
 	/**
-	 * 描述
+	 * Documentation description.
 	 **/
 	private String description = "";
 	/**
-	 * 版本
+	 * Documentation version.
 	 **/
 	private String version = "";
 	/**
-	 * 许可证
+	 * License name.
 	 **/
 	private String license = "";
 	/**
-	 * 许可证URL
+	 * License URL.
 	 **/
 	private String licenseUrl = "";
 	/**
-	 * 服务条款URL
+	 * Terms of service URL.
 	 **/
 	private String termsOfServiceUrl = "";
 
 	/**
-	 * 忽略的参数类型
+	 * Parameter types to be ignored by Swagger.
 	 **/
 	private List<Class<?>> ignoredParameterTypes = new ArrayList<>();
 
@@ -87,50 +95,50 @@ public class Swagger2WebMvcProperties {
 	private Contact contact = new Contact();
 
 	/**
-	 * swagger会解析的包路径
+	 * Base package scanned by Swagger for API endpoints.
 	 **/
 	private String basePackage = "";
 
-    /**
-     * swagger会解析的url规则:ant表达式
-     **/
-    private String basePathPattern = "";
-    
 	/**
-	 * host信息
+	 * Ant expression of URL paths Swagger will resolve.
+	 **/
+	private String basePathPattern = "";
+
+	/**
+	 * Host information.
 	 **/
 	private String host = "";
-	
+
 	/**
-	 * 分组文档
+	 * Documentation groups.
 	 **/
 	@NestedConfigurationProperty
 	private List<DocketInfo> groups = new ArrayList<DocketInfo>();
 
 	/**
-	 * 全局参数配置
+	 * Global operation parameters.
 	 **/
 	private List<GlobalOperationParameter> globalOperationParameters;
 
 	/**
-	 * 页面功能配置
+	 * Swagger UI configuration.
 	 **/
 	@NestedConfigurationProperty
 	private UiConfig uiConfig = new UiConfig();
 
 	/**
-	 * 是否使用默认预定义的响应消息 ，默认 true
+	 * Whether to use the default predefined response messages; defaults to {@code true}.
 	 **/
 	private boolean applyDefaultResponseMessages = true;
 
 	/**
-	 * 全局响应消息
+	 * Global response messages.
 	 **/
 	@NestedConfigurationProperty
 	private GlobalResponseMessage globalResponseMessage;
 
 	/**
-	 * 全局统一鉴权配置
+	 * Global authorization configuration.
 	 **/
 	@NestedConfigurationProperty
 	private Authorization authorization = new Authorization();

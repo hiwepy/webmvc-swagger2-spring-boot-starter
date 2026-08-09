@@ -39,10 +39,13 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
- * 参考https://my.oschina.net/go4it/blog/3035218
- * 大部分代码来来自：https://github.com/SpringForAll/spring-boot-starter-swagger
- * 
+ * Spring Boot auto-configuration for Swagger2 in Spring WebMVC applications. <p>Activated when
+ * {@code swagger.enabled=true}, it registers the Swagger UI resource configurer, the UI
+ * configuration bean and the {@link Docket} documentation groups. Most of the implementation
+ * is adapted from the spring-boot-starter-swagger project.</p>
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 @Configuration
 @ConditionalOnProperty(prefix = Swagger2WebMvcProperties.PREFIX, value = "enabled", havingValue = "true")
@@ -53,18 +56,27 @@ public class Swagger2WebMvcAutoConfiguration implements BeanFactoryAware {
 
 	private BeanFactory beanFactory;
 
+	/**
+	 * Registers the Swagger UI resource and view controller configurer.
+	 * @return a new {@link Swagger2UiWebMvcConfigurer}
+	 */
 	@Bean
 	public Swagger2UiWebMvcConfigurer swagger2UiWebMvcConfigurer() {
 		return new Swagger2UiWebMvcConfigurer();
 	}
-	
+
 	/*
 	 * @Primary
-	 * 
+	 *
 	 * @Bean public ServiceModelToSwagger2Mapper ServiceModelToSwagger2Mapper() {
 	 * return new ExtendServiceModelToSwagger2MapperImpl(); }
 	 */
-	
+
+	/**
+	 * Builds the Swagger UI configuration from the bound properties.
+	 * @param swaggerProperties the Swagger properties
+	 * @return a new {@link UiConfiguration}
+	 */
 	@Bean
 	public UiConfiguration uiConfiguration(Swagger2WebMvcProperties swaggerProperties) {
 		return UiConfigurationBuilder.builder()
@@ -85,6 +97,12 @@ public class Swagger2WebMvcAutoConfiguration implements BeanFactoryAware {
 
 	
 	
+	/**
+	 * Builds the default {@link Docket} together with one {@link Docket} per configured group,
+	 * registering each as a singleton in the bean factory.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the list of created dockets (default first, then groups)
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnBean(UiConfiguration.class)
@@ -98,7 +116,7 @@ public class Swagger2WebMvcAutoConfiguration implements BeanFactoryAware {
 		configurableBeanFactory.registerSingleton("defaultDocket", defaultDocket);
 		docketList.add(defaultDocket);
 
-		// 分组创建
+		// Create one docket per group
 		for (DocketInfo docketInfo : swaggerProperties.getGroups()) {
 			
 			String groupName = String.format("%sDocket", docketInfo.getName());
@@ -113,6 +131,11 @@ public class Swagger2WebMvcAutoConfiguration implements BeanFactoryAware {
 		return docketList;
 	}
 
+	/**
+	 * Callback that supplies the owning bean factory.
+	 * @param beanFactory the owning bean factory
+	 * @throws BeansException in case of errors
+	 */
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		this.beanFactory = beanFactory;

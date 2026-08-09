@@ -49,12 +49,21 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
 
-/*
- * TODO
+/**
+ * Utility for building Springfox {@link Docket} instances and their supporting objects (API
+ * info, security schemes/contexts, global parameters and global response messages) from the
+ * bound {@link Swagger2WebMvcProperties}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 public class Swagger2Utils {
 
+	/**
+	 * Builds the {@link ApiInfo} from the global Swagger properties.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the built API info
+	 */
 	public static ApiInfo apiInfo(Swagger2WebMvcProperties swaggerProperties) {
  		return new ApiInfoBuilder()
 				.title(swaggerProperties.getTitle())
@@ -67,6 +76,13 @@ public class Swagger2Utils {
 				.build();
 	}
 	
+	/**
+	 * Builds the {@link ApiInfo} for a documentation group, falling back to the global
+	 * Swagger properties when the group does not specify a value.
+	 * @param docketInfo the group configuration
+	 * @param swaggerProperties the global Swagger properties
+	 * @return the built API info
+	 */
 	public static ApiInfo apiInfo(DocketInfo docketInfo, Swagger2WebMvcProperties swaggerProperties) {
  		return new ApiInfoBuilder()
 				.title(StringUtils.hasText(docketInfo.getTitle()) ? swaggerProperties.getTitle() : docketInfo.getTitle())
@@ -83,6 +99,11 @@ public class Swagger2Utils {
 				.build();
 	}
 	
+	/**
+	 * Builds the default {@link Docket} from the global Swagger properties.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the default docket
+	 */
 	public static Docket defaultDocket(Swagger2WebMvcProperties swaggerProperties) {
 		
 		Docket docketForBuilder = new Docket(DocumentationType.SWAGGER_2)
@@ -103,14 +124,14 @@ public class Swagger2Utils {
 			};break;
 		}
 
-		// 全局响应消息
+		// Global response messages
 		if (!swaggerProperties.isApplyDefaultResponseMessages()) {
 			buildGlobalResponseMessage(swaggerProperties, docketForBuilder);
 		}
-		
+
 		// RequestHandlerSelectors.basePackage(basePackage)
 		// PathSelectors.ant(antPattern)
-		
+
 		Docket docket = docketForBuilder.select()
 				.apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
 				.paths(StringUtils.hasText(swaggerProperties.getBasePathPattern()) ? PathSelectors.ant(swaggerProperties.getBasePathPattern()) : PathSelectors.any())
@@ -127,6 +148,13 @@ public class Swagger2Utils {
 		
 	}
 	
+	/**
+	 * Builds a {@link Docket} for a documentation group, merging the group's parameters with
+	 * the global parameters.
+	 * @param docketInfo the group configuration
+	 * @param swaggerProperties the global Swagger properties
+	 * @return the group docket
+	 */
 	public static Docket groupDocket(DocketInfo docketInfo, Swagger2WebMvcProperties swaggerProperties) {
 
 		Docket docketForBuilder = new Docket(DocumentationType.SWAGGER_2)
@@ -147,11 +175,11 @@ public class Swagger2Utils {
 			};break;
 		}
 
-		// 全局响应消息
+		// Global response messages
 		if (!swaggerProperties.isApplyDefaultResponseMessages()) {
 			buildGlobalResponseMessage(swaggerProperties, docketForBuilder);
 		}
-		
+
 		Docket docket = docketForBuilder.groupName(docketInfo.getName()).select()
 				.apis(RequestHandlerSelectors.basePackage(docketInfo.getBasePackage()))
 				.paths(StringUtils.hasText(docketInfo.getBasePathPattern()) ? PathSelectors.ant(docketInfo.getBasePathPattern()) : PathSelectors.any())
@@ -168,40 +196,42 @@ public class Swagger2Utils {
 	}
 	
 
-	/*
-	 * 配置基于 ApiKey 的鉴权对象
-	 *
-	 * @return ApiKey
+	/**
+	 * Builds the {@link ApiKey} security scheme from the Swagger properties.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the API-key security scheme
 	 */
 	public static ApiKey apiKey(Swagger2WebMvcProperties swaggerProperties) {
 		return new ApiKey(swaggerProperties.getAuthorization().getName(),
 				swaggerProperties.getAuthorization().getKeyName(), ApiKeyVehicle.HEADER.getValue());
 	}
 
-	/*
-	 * 配置基于 BasicAuth 的鉴权对象
-	 *
-	 * @return BasicAuth
+	/**
+	 * Builds the {@link BasicAuth} security scheme from the Swagger properties.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the basic-auth security scheme
 	 */
 	public static BasicAuth basicAuth(Swagger2WebMvcProperties swaggerProperties) {
 		return new BasicAuth(swaggerProperties.getAuthorization().getName());
 	}
 
-	/*
-	 * 配置默认的全局鉴权策略的开关，以及通过正则表达式进行匹配；默认 ^.*$ 匹配所有URL 其中 securityReferences 为配置启用的鉴权策略
-	 *
-	 * @return SecurityContext
+	/**
+	 * Builds the global {@link SecurityContext}, enabling authorization on URLs matching the
+	 * configured regular expression (defaults to {@code ^.*$}, i.e. all URLs), and binding
+	 * the security references.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the security context
 	 */
 	public static SecurityContext securityContext(Swagger2WebMvcProperties swaggerProperties) {
 		return SecurityContext.builder().securityReferences(defaultAuth(swaggerProperties))
 				.forPaths(PathSelectors.regex(swaggerProperties.getAuthorization().getAuthRegex())).build();
 	}
 
-	/*
-	 * 配置默认的全局鉴权策略；其中返回的 SecurityReference 中，reference
-	 * 即为ApiKey对象里面的name，保持一致才能开启全局鉴权
-	 *
-	 * @return List<SecurityReference>
+	/**
+	 * Builds the default global security references. The {@link SecurityReference} reference
+	 * name must match the {@link ApiKey} name for global authorization to take effect.
+	 * @param swaggerProperties the Swagger properties
+	 * @return the default security references
 	 */
 	public static List<SecurityReference> defaultAuth(Swagger2WebMvcProperties swaggerProperties) {
 		AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
@@ -211,6 +241,12 @@ public class Swagger2Utils {
 				.reference(swaggerProperties.getAuthorization().getName()).scopes(authorizationScopes).build());
 	}
 
+	/**
+	 * Converts the configured global operation parameters into Springfox {@link Parameter}
+	 * objects.
+	 * @param globalOperationParameters the configured global parameters
+	 * @return the list of Springfox parameters (never {@code null})
+	 */
 	public static List<Parameter> buildGlobalOperationParametersFromSwagger2WebMvcProperties(
 			List<GlobalOperationParameter> globalOperationParameters) {
 		List<Parameter> parameters = new ArrayList<Parameter>();
@@ -234,12 +270,12 @@ public class Swagger2Utils {
 		return parameters;
 	}
 
-	/*
-	 * 局部参数按照name覆盖局部参数
-	 *
-	 * @param globalOperationParameters  全局参数
-	 * @param docketOperationParameters  当前分组参数
-	 * @return List<Parameter> 
+	/**
+	 * Merges the global parameters with the group parameters; group parameters override
+	 * global parameters with the same name.
+	 * @param globalOperationParameters the global parameters
+	 * @param docketOperationParameters the current group parameters
+	 * @return the merged list of Springfox parameters
 	 */
 	public static List<Parameter> assemblyGlobalOperationParameters(List<GlobalOperationParameter> globalOperationParameters,
 			List<GlobalOperationParameter> docketOperationParameters) {
@@ -265,17 +301,17 @@ public class Swagger2Utils {
 		return buildGlobalOperationParametersFromSwagger2WebMvcProperties(resultOperationParameters);
 	}
 
-	/*
-	 * 设置全局响应消息
-	 *
-	 * @param swaggerProperties swaggerProperties 支持 POST,GET,PUT,PATCH,DELETE,HEAD,OPTIONS,TRACE
-	 * @param docketForBuilder  swagger docket builder
+	/**
+	 * Sets the global response messages on the given docket builder for the HTTP methods
+	 * POST, GET, PUT, PATCH, DELETE, HEAD, OPTIONS and TRACE.
+	 * @param swaggerProperties the Swagger properties
+	 * @param docketForBuilder the Swagger docket builder
 	 */
 	public static void buildGlobalResponseMessage(Swagger2WebMvcProperties swaggerProperties, Docket docketForBuilder) {
 
 		GlobalResponseMessage globalResponseMessages = swaggerProperties.getGlobalResponseMessage();
 
-		/* POST,GET,PUT,PATCH,DELETE,HEAD,OPTIONS,TRACE 响应消息体 **/
+		/* Response message bodies for POST, GET, PUT, PATCH, DELETE, HEAD, OPTIONS, TRACE **/
 		List<ResponseMessage> postResponseMessages = getResponseMessageList(globalResponseMessages.getPost());
 		List<ResponseMessage> getResponseMessages = getResponseMessageList(globalResponseMessages.getGet());
 		List<ResponseMessage> putResponseMessages = getResponseMessageList(globalResponseMessages.getPut());
@@ -296,11 +332,11 @@ public class Swagger2Utils {
 				.globalResponseMessage(RequestMethod.TRACE, trackResponseMessages);
 	}
 
-	/*
-	 * 获取返回消息体列表
-	 *
-	 * @param globalResponseMessageBodyList 全局Code消息返回集合
-	 * @return List<ResponseMessage>
+	/**
+	 * Converts the configured response message bodies into Springfox {@link ResponseMessage}
+	 * objects.
+	 * @param globalResponseMessageBodyList the configured response message bodies
+	 * @return the list of Springfox response messages
 	 */
 	public static List<ResponseMessage> getResponseMessageList(
 			List<GlobalResponseMessageBody> globalResponseMessageBodyList) {

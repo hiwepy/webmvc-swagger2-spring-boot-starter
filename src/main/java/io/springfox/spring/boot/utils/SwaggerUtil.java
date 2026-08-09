@@ -35,24 +35,29 @@ import io.swagger.models.properties.PropertyBuilder.PropertyId;
 import io.swagger.models.properties.RefProperty;
 import io.swagger.models.properties.StringProperty;
  
-/*
- * https://blog.csdn.net/pingzi_kendy/article/details/83577443
- * @author ChenZhiPing 2018年10月31日 下午1:44:50
+/**
+ * Utilities for resolving Swagger property types from generic type expressions. <p>Handles
+ * the {@code «»} guillemet notation used by Springfox for generic types, e.g.
+ * {@code ApiRestResponse«Map«K,V»»}.</p>
+ *
+ * @author ChenZhiPing
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 public class SwaggerUtil {
- 
-	/*
-	 * 判断是否Swagger基本类型
-	 * @param type
-	 * @return
+
+	/**
+	 * Returns whether the given type name is a Swagger base type.
+	 * @param type the type name to check
+	 * @return {@code true} if it is a base type
 	 */
 	public static boolean isBaseType(String type) {
 		return SwaggerUtil.getSwaggerProperty(type) != null;
 	}
- 
-	/*
-	 * 获取Swagger支持的类型
-	 * @return
+
+	/**
+	 * Returns the map of Swagger-supported type names to their default property instances.
+	 * @return the supported type map
 	 */
 	public static Map<String, AbstractProperty> getPropMap() {
 		Map<String, AbstractProperty> map = new HashMap<String, AbstractProperty>();
@@ -66,32 +71,44 @@ public class SwaggerUtil {
 		map.put("date", new DateTimeProperty());
 		return map;
 	}
- 
-	/*
-	 * 通过java类型获取Swagger类型
-	 * @param type javaType
-	 * @return swaggerType
+
+	/**
+	 * Resolves the Swagger property for the given Java type name.
+	 * @param type the Java type name
+	 * @return the matching Swagger property, or {@code null} if unknown
 	 */
 	public static AbstractProperty getSwaggerProperty(String type) {
 		type = type.toLowerCase();
 		return SwaggerUtil.getPropMap().get(type);
 	}
- 
+
+	/**
+	 * Returns whether the given type name denotes a {@code Map}.
+	 * @param type the type name to check
+	 * @return {@code true} if the type is a map
+	 */
 	public static boolean isMap(String type) {
 		type = type.toLowerCase();
 		return type.startsWith("map");
 	}
- 
+
+	/**
+	 * Returns whether the given type name denotes an iterable (a {@code List} or {@code Set}).
+	 * @param type the type name to check
+	 * @return {@code true} if the type is iterable
+	 */
 	public static boolean isIterable(String type) {
 		type = type.toLowerCase();
 		return type.startsWith("list") || type.startsWith("set");
 	}
- 
-	/*
-	 * 获取非基本类型的T<br>
-	 * new String[] { "A<List<C1>>", "A<C2>", "A<B<String,<String,List<C4>>>>" }
-	 * @param type
-	 * @return C1,C2,C3,C4
+
+	/**
+	 * Extracts the first non-base reference type parameter {@code T} from a generic
+	 * expression. <p>For inputs such as {@code A«List«C1»»}, {@code A«C2»},
+	 * {@code A«B«String,«String,List«C4»»»»}, returns {@code C1}, {@code C2}, {@code C4}
+	 * respectively.</p>
+	 * @param type the generic type expression
+	 * @return the referenced type, or {@code "!!Unknown T!!"} if it cannot be resolved
 	 */
 	public static String getRef(String type) {
 		try {
@@ -109,10 +126,10 @@ public class SwaggerUtil {
 		return "!!Unknown T!!";
 	}
  
-	/*
-	 * 获取对象类型，主要是剥离第一层<>
-	 * @param type ApiRestResponse<Map<Operator, List<Map<String, Customer>>>>
-	 * @return Map<Operator, List<Map<String, Customer>>>
+	/**
+	 * Extracts the inner type by stripping the outermost {@code «»} wrapper.
+	 * @param type e.g. {@code ApiRestResponse«Map«Operator, List«Map«String, Customer»»»»}
+	 * @return the inner expression, e.g. {@code Map«Operator, List«Map«String, Customer»»»}
 	 */
 	public static String getRealType(String type) {
 		try {
@@ -124,10 +141,10 @@ public class SwaggerUtil {
 		return type;
 	}
  
-	/*
-	 * 判断是否存在非基本类型<参照类型>
-	 * @param type
-	 * @return
+	/**
+	 * Returns whether the given type expression contains a non-base reference type.
+	 * @param type the type expression to inspect
+	 * @return {@code true} if a reference type is present
 	 */
 	public static boolean hasRef(String type) {
 		if (type.indexOf("»") > 0) {
@@ -148,6 +165,11 @@ public class SwaggerUtil {
 		}
 	}
 	
+	/**
+	 * Returns whether the given type expression has generic type parameters.
+	 * @param type the type expression to inspect
+	 * @return {@code true} if the type is generic
+	 */
 	public static boolean hasGenerics(String type) {
 		if (type.indexOf("»") > 0) {
 			return true;
@@ -155,14 +177,14 @@ public class SwaggerUtil {
 			return false;
 		}
 	}
- 
-	/*
-	 * 递归处理泛型类型 <br>
-	 * ApiRestResponse<Map<Map<Long, Operator>, List<Map<String, Customer>>>>
-	 * @param dataProp
-	 * @param type
-	 * @param definitions
-	 * @return
+
+	/**
+	 * Recursively resolves the Swagger property for a generic type expression, e.g.
+	 * {@code ApiRestResponse«Map«Map«Long, Operator», List«Map«String, Customer»»»»}.
+	 * @param dataProp the original data property to copy metadata from
+	 * @param type the generic type expression
+	 * @param definitions the available model definitions
+	 * @return the resolved property, or {@code null} if it cannot be resolved
 	 */
 	public static Property getNewProp(Property dataProp, String type, Map<String, Model> definitions) {
 		Property newProp = null;
@@ -179,7 +201,7 @@ public class SwaggerUtil {
 			String[] realTypes = SwaggerUtil.splitByComma(realType);
  
 			Map<PropertyId, Object> argsK = new HashMap<PropertyId, Object>();
-			argsK.put(PropertyBuilder.PropertyId.DESCRIPTION, "Map的键");
+			argsK.put(PropertyBuilder.PropertyId.DESCRIPTION, "Map key");
 			argsK.put(PropertyBuilder.PropertyId.TYPE, realTypes[0].toLowerCase());
 			AbstractProperty _prop0 = SwaggerUtil.getSwaggerProperty(realTypes[0]);
 			Property propK = PropertyBuilder.build(null == _prop0 ? "object" : _prop0.getType(),
@@ -187,7 +209,7 @@ public class SwaggerUtil {
 			propK.setName("key");
  
 			Map<PropertyId, Object> argsV = new HashMap<PropertyId, Object>();
-			argsV.put(PropertyBuilder.PropertyId.DESCRIPTION, "Map的值");
+			argsV.put(PropertyBuilder.PropertyId.DESCRIPTION, "Map value");
 			argsV.put(PropertyBuilder.PropertyId.TYPE, realTypes[1].toLowerCase());
 			AbstractProperty _prop1 = SwaggerUtil.getSwaggerProperty(realTypes[1]);
 			Property propV = PropertyBuilder.build(null == _prop1 ? "object" : _prop1.getType(),
@@ -235,6 +257,12 @@ public class SwaggerUtil {
 		return newProp;
 	}
  
+	/**
+	 * Splits a generic type expression on the top-level comma, i.e. the comma at nesting
+	 * depth zero.
+	 * @param str the generic type expression
+	 * @return a two-element array holding the left and right parts
+	 */
 	public static String[] splitByComma(String str) {
 		int index = 0;
 		int has = 0;
@@ -257,6 +285,11 @@ public class SwaggerUtil {
 		return arr;
 	}
  
+	/**
+	 * Standalone demo entry point that exercises {@link #getRealType(String)} and
+	 * {@link #splitByComma(String)} with sample inputs.
+	 * @param args unused command-line arguments
+	 */
 	public static void main(String[] args) {
 		String[] ss = new String[] { "A«List«C1»»", "A«C2»", "A«B«String,«String,List«C4»»»»" };
 		for (String s : ss) {

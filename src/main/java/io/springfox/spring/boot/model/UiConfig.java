@@ -20,25 +20,31 @@ import springfox.documentation.swagger.web.DocExpansion;
 import springfox.documentation.swagger.web.ModelRendering;
 import springfox.documentation.swagger.web.OperationsSorter;
 import springfox.documentation.swagger.web.TagsSorter;
+/**
+ * Configuration for the Swagger UI page.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Data
 public class UiConfig {
 
     private String apiSorter = "alpha";
 
     /**
-     * 是否启用json编辑器
+     * Whether the JSON editor is enabled.
      **/
     private Boolean jsonEditor = false;
     /**
-     * 是否显示请求头信息
+     * Whether to show the request headers.
      **/
     private Boolean showRequestHeaders = true;
     /**
-     * 支持页面提交的请求类型
+     * Comma-separated request methods that can be submitted from the UI.
      **/
     private String submitMethods = "get,post,put,delete,patch";
     /**
-     * 请求超时时间
+     * Request timeout in milliseconds.
      **/
     private Long requestTimeout = 10000L;
 
@@ -49,15 +55,15 @@ public class UiConfig {
     private ModelRendering defaultModelRendering;
 
     /**
-     * 是否显示请求耗时，默认false
+     * Whether to display the request duration; defaults to {@code false}.
      */
     private Boolean displayRequestDuration = true;
     /**
-     * 可选 none | list
+     * Default expansion mode: {@code none} or {@code list}.
      */
     private DocExpansion docExpansion;
     /**
-     * Boolean=false OR String
+     * Filter: a {@code Boolean=false} or a {@code String}.
      */
     private Object filter;
     private Integer maxDisplayedTags;
@@ -66,8 +72,8 @@ public class UiConfig {
     private TagsSorter tagsSorter;
 
     /**
-     * Network
+     * Network validator URL.
      */
     private String validatorUrl;
-    
+
 }

@@ -17,56 +17,63 @@ package io.springfox.spring.boot.model;
 
 import lombok.Data;
 
+/**
+ * Definition of a global Swagger operation parameter.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Data
 public class GlobalOperationParameter {
-	
+
 	/**
-	 * 参数名
+	 * Parameter name.
 	 **/
 	private String name;
 
 	/**
-	 * 描述信息
+	 * Parameter description.
 	 **/
 	private String description;
-	
+
 	/**
-	 * 默认值
+	 * Default value of the parameter.
 	 **/
 	private String defaultValue;
 
 	/**
-	 * 指定参数类型
+	 * Model reference describing the parameter type.
 	 **/
 	private String modelRef;
 
 	/**
-	 * 参数放在哪个地方:header,query,path,body.form
+	 * Where the parameter is located: {@code header}, {@code query}, {@code path},
+	 * {@code body} or {@code form}.
 	 **/
 	private String parameterType;
 
 	/**
-	 * 参数是否必须传
+	 * Whether the parameter is required.
 	 **/
 	private boolean required;
-	
+
 	/**
-	 * 参数是否隐藏
+	 * Whether the parameter is hidden.
 	 **/
 	private boolean hidden;
-	
+
 	/**
-	 * 参数格式
+	 * Parameter pattern (e.g. a regular expression).
 	 **/
 	private String pattern;
-  
+
 	/**
-	 * 参数是否允许为空
+	 * Whether the parameter allows an empty value.
 	 **/
 	private boolean allowEmptyValue;
-	
+
 	/**
-	 * 参数示例
+	 * Example scalar value for the parameter.
 	 **/
 	private Object scalarExample;
 

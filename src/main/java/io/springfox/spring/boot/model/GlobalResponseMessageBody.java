@@ -17,21 +17,27 @@ package io.springfox.spring.boot.model;
 
 import lombok.Data;
 
+/**
+ * A single global Swagger response message body.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Data
 public class GlobalResponseMessageBody {
 
 	/**
-	 * 响应码
+	 * Response code.
 	 **/
 	private int code;
 
 	/**
-	 * 响应消息
+	 * Response message.
 	 **/
 	private String message;
 
 	/**
-	 * 响应体
+	 * Response body model reference.
 	 **/
 	private String modelRef;
 

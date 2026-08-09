@@ -20,46 +20,52 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * Global Swagger response messages per HTTP method.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Data
 public class GlobalResponseMessage {
 
 	/**
-	 * POST 响应消息体
+	 * Response message bodies for POST requests.
 	 **/
 	List<GlobalResponseMessageBody> post = new ArrayList<>();
 
 	/**
-	 * GET 响应消息体
+	 * Response message bodies for GET requests.
 	 **/
 	List<GlobalResponseMessageBody> get = new ArrayList<>();
 
 	/**
-	 * PUT 响应消息体
+	 * Response message bodies for PUT requests.
 	 **/
 	List<GlobalResponseMessageBody> put = new ArrayList<>();
 
 	/**
-	 * PATCH 响应消息体
+	 * Response message bodies for PATCH requests.
 	 **/
 	List<GlobalResponseMessageBody> patch = new ArrayList<>();
 
 	/**
-	 * DELETE 响应消息体
+	 * Response message bodies for DELETE requests.
 	 **/
 	List<GlobalResponseMessageBody> delete = new ArrayList<>();
 
 	/**
-	 * HEAD 响应消息体
+	 * Response message bodies for HEAD requests.
 	 **/
 	List<GlobalResponseMessageBody> head = new ArrayList<>();
 
 	/**
-	 * OPTIONS 响应消息体
+	 * Response message bodies for OPTIONS requests.
 	 **/
 	List<GlobalResponseMessageBody> options = new ArrayList<>();
 
 	/**
-	 * TRACE 响应消息体
+	 * Response message bodies for TRACE requests.
 	 **/
 	List<GlobalResponseMessageBody> trace = new ArrayList<>();
 

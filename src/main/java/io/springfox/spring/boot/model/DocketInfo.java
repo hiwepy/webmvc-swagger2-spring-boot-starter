@@ -20,63 +20,69 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * Configuration for a single Swagger documentation group.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Data
 public class DocketInfo {
 
 	/**
-	 * when true it enables rfc6570 url templates
+	 * When {@code true} it enables rfc6570 url templates.
 	 */
 	private boolean enableUrlTemplating = false;
 	/**
-	 * Set this to true in order to make the documentation code generation friendly.
+	 * Set this to {@code true} in order to make the documentation code generation friendly.
 	 *
-	 * true|false determines the naming strategy used
+	 * {@code true}|{@code false} determines the naming strategy used.
 	 */
 	private boolean forCodeGen = false;
 	/**
-	 * 名称
+	 * Group name.
 	 **/
 	private String name = "";
 	/**
-	 * 标题
+	 * Documentation title.
 	 **/
 	private String title = "";
 	/**
-	 * 描述
+	 * Documentation description.
 	 **/
 	private String description = "";
 	/**
-	 * 版本
+	 * Documentation version.
 	 **/
 	private String version = "";
 	/**
-	 * 许可证
+	 * License name.
 	 **/
 	private String license = "";
 	/**
-	 * 许可证URL
+	 * License URL.
 	 **/
 	private String licenseUrl = "";
 	/**
-	 * 服务条款URL
+	 * Terms of service URL.
 	 **/
 	private String termsOfServiceUrl = "";
 
 	private Contact contact = new Contact();
 
 	/**
-	 * swagger会解析的包路径
+	 * Base package scanned by Swagger for this group.
 	 **/
 	private String basePackage = "";
 
 	/**
-	 * swagger会解析的url规则:ant表达式
+	 * Ant expression of URL paths Swagger will resolve for this group.
 	 **/
 	private String basePathPattern = "";
 
 	private List<GlobalOperationParameter> globalOperationParameters;
 	/**
-	 * 忽略的参数类型
+	 * Parameter types to be ignored by Swagger for this group.
 	 **/
 	private List<Class<?>> ignoredParameterTypes = new ArrayList<>();
 
