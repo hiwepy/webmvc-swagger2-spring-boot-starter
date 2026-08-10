@@ -41,7 +41,7 @@ import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl
 /**
  * TODO
  * 
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @Slf4j
 public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagger2MapperImpl {
