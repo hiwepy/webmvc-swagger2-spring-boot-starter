@@ -44,7 +44,7 @@ import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl
  * generated {@link Swagger} definitions so that generic {@code ApiRestResponse<T>} models
  * expose the actual type of their {@code data} property (e.g. arrays, references, maps).</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class ExtendServiceModelToSwagger2MapperImpl extends ServiceModelToSwagger2MapperImpl {

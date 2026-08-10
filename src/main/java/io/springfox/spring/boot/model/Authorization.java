@@ -19,7 +19,7 @@ package io.springfox.spring.boot.model;
  * Global Swagger authorization configuration. <p>Configures one of the supported
  * {@code securitySchemes} types (ApiKey, BasicAuth or None).</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class Authorization {

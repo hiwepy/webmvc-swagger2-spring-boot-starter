@@ -18,7 +18,7 @@ package io.springfox.spring.boot.model;
 /**
  * A single global Swagger response message body.
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class GlobalResponseMessageBody {

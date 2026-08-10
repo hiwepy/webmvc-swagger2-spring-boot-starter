@@ -41,7 +41,7 @@ import io.swagger.models.properties.StringProperty;
  * {@code ApiRestResponse«Map«K,V»»}.</p>
  *
  * @author ChenZhiPing
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class SwaggerUtil {

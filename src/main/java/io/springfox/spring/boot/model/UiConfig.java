@@ -23,7 +23,7 @@ import springfox.documentation.swagger.web.TagsSorter;
 /**
  * Configuration for the Swagger UI page.
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class UiConfig {

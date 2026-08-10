@@ -44,7 +44,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
  * configuration bean and the {@link Docket} documentation groups. Most of the implementation
  * is adapted from the spring-boot-starter-swagger project.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @Configuration

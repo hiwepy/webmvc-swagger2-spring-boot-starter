@@ -25,7 +25,7 @@ import io.swagger.models.refs.RefType;
  * {@link RefProperty}. <p>Represents an array whose items are a reference to another
  * model definition.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class ArrayRefProperty extends ArrayProperty {

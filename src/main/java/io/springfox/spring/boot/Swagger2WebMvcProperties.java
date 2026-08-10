@@ -33,7 +33,7 @@ import io.springfox.spring.boot.model.UiConfig;
  * prefix and exposes the documentation title, description, version, license, contact,
  * base package, groups, global parameters, response messages and authorization settings.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @ConfigurationProperties(Swagger2WebMvcProperties.PREFIX)

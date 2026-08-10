@@ -10,7 +10,7 @@ import org.springframework.web.servlet.resource.LiteWebJarsResourceResolver;
  * {@code /swagger-ui/**}, {@code /doc.html} and (optionally) {@code /webjars/**} URL patterns
  * to their classpath resource locations, and forwards the Swagger UI root to the index page.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class Swagger2UiWebMvcConfigurer implements WebMvcConfigurer {

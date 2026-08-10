@@ -54,7 +54,7 @@ import springfox.documentation.swagger.web.ApiKeyVehicle;
  * info, security schemes/contexts, global parameters and global response messages) from the
  * bound {@link Swagger2WebMvcProperties}.
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class Swagger2Utils {

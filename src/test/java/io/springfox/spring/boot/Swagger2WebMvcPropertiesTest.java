@@ -20,7 +20,7 @@ import io.springfox.spring.boot.model.UiConfig;
 /**
  * Tests for {@link Swagger2WebMvcProperties}.
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @DisplayName("Swagger2WebMvcProperties Tests")

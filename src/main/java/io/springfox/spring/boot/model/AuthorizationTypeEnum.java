@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
  * Swagger authorization scheme type. <p>One of {@code ApiKey}, {@code BasicAuth} or
  * {@code None}; defaults to {@code ApiKey}.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public enum AuthorizationTypeEnum {
