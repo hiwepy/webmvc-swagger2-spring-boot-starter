@@ -74,87 +74,192 @@ public class GlobalOperationParameter {
 	 **/
 	private Object scalarExample;
 
+	/**
+	 * Returns the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the description.
+	 *
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Sets the description.
+	 *
+	 * @param description the description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Returns the default value.
+	 *
+	 * @return the default value
+	 */
 	public String getDefaultValue() {
 		return defaultValue;
 	}
 
+	/**
+	 * Sets the default value.
+	 *
+	 * @param defaultValue the default value
+	 */
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
+	/**
+	 * Returns the model ref.
+	 *
+	 * @return the model ref
+	 */
 	public String getModelRef() {
 		return modelRef;
 	}
 
+	/**
+	 * Sets the model ref.
+	 *
+	 * @param modelRef the model ref
+	 */
 	public void setModelRef(String modelRef) {
 		this.modelRef = modelRef;
 	}
 
+	/**
+	 * Returns the parameter type.
+	 *
+	 * @return the parameter type
+	 */
 	public String getParameterType() {
 		return parameterType;
 	}
 
+	/**
+	 * Sets the parameter type.
+	 *
+	 * @param parameterType the parameter type
+	 */
 	public void setParameterType(String parameterType) {
 		this.parameterType = parameterType;
 	}
 
+	/**
+	 * Returns the required.
+	 *
+	 * @return the required
+	 */
 	public boolean isRequired() {
 		return required;
 	}
 
+	/**
+	 * Sets the required.
+	 *
+	 * @param required the required
+	 */
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
 
+	/**
+	 * Returns the hidden.
+	 *
+	 * @return the hidden
+	 */
 	public boolean isHidden() {
 		return hidden;
 	}
 
+	/**
+	 * Sets the hidden.
+	 *
+	 * @param hidden the hidden
+	 */
 	public void setHidden(boolean hidden) {
 		this.hidden = hidden;
 	}
 
+	/**
+	 * Returns the pattern.
+	 *
+	 * @return the pattern
+	 */
 	public String getPattern() {
 		return pattern;
 	}
 
+	/**
+	 * Sets the pattern.
+	 *
+	 * @param pattern the pattern
+	 */
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
 	}
 
+	/**
+	 * Returns the allow empty value.
+	 *
+	 * @return the allow empty value
+	 */
 	public boolean isAllowEmptyValue() {
 		return allowEmptyValue;
 	}
 
+	/**
+	 * Sets the allow empty value.
+	 *
+	 * @param allowEmptyValue the allow empty value
+	 */
 	public void setAllowEmptyValue(boolean allowEmptyValue) {
 		this.allowEmptyValue = allowEmptyValue;
 	}
 
+	/**
+	 * Returns the scalar example.
+	 *
+	 * @return the scalar example
+	 */
 	public Object getScalarExample() {
 		return scalarExample;
 	}
 
+	/**
+	 * Sets the scalar example.
+	 *
+	 * @param scalarExample the scalar example
+	 */
 	public void setScalarExample(Object scalarExample) {
 		this.scalarExample = scalarExample;
 	}
 
 	@Override
+	/**
+	 * to String.
+	 *
+	 * @return the result
+	 */
 	public String toString() {
 		return "GlobalOperationParameter{name='" + name + "', description='" + description + "', modelRef='" + modelRef + "'}";
 	}

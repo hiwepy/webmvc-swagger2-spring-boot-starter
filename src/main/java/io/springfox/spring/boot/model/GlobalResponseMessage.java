@@ -66,71 +66,156 @@ public class GlobalResponseMessage {
 	 **/
 	private List<GlobalResponseMessageBody> trace = new ArrayList<>();
 
+	/**
+	 * Returns the post.
+	 *
+	 * @return the post
+	 */
 	public List<GlobalResponseMessageBody> getPost() {
 		return post;
 	}
 
+	/**
+	 * Sets the post.
+	 *
+	 * @param post the post
+	 */
 	public void setPost(List<GlobalResponseMessageBody> post) {
 		this.post = post;
 	}
 
+	/**
+	 * Returns the get.
+	 *
+	 * @return the get
+	 */
 	public List<GlobalResponseMessageBody> getGet() {
 		return get;
 	}
 
+	/**
+	 * Sets the get.
+	 *
+	 * @param get the get
+	 */
 	public void setGet(List<GlobalResponseMessageBody> get) {
 		this.get = get;
 	}
 
+	/**
+	 * Returns the put.
+	 *
+	 * @return the put
+	 */
 	public List<GlobalResponseMessageBody> getPut() {
 		return put;
 	}
 
+	/**
+	 * Sets the put.
+	 *
+	 * @param put the put
+	 */
 	public void setPut(List<GlobalResponseMessageBody> put) {
 		this.put = put;
 	}
 
+	/**
+	 * Returns the patch.
+	 *
+	 * @return the patch
+	 */
 	public List<GlobalResponseMessageBody> getPatch() {
 		return patch;
 	}
 
+	/**
+	 * Sets the patch.
+	 *
+	 * @param patch the patch
+	 */
 	public void setPatch(List<GlobalResponseMessageBody> patch) {
 		this.patch = patch;
 	}
 
+	/**
+	 * Returns the delete.
+	 *
+	 * @return the delete
+	 */
 	public List<GlobalResponseMessageBody> getDelete() {
 		return delete;
 	}
 
+	/**
+	 * Sets the delete.
+	 *
+	 * @param delete the delete
+	 */
 	public void setDelete(List<GlobalResponseMessageBody> delete) {
 		this.delete = delete;
 	}
 
+	/**
+	 * Returns the head.
+	 *
+	 * @return the head
+	 */
 	public List<GlobalResponseMessageBody> getHead() {
 		return head;
 	}
 
+	/**
+	 * Sets the head.
+	 *
+	 * @param head the head
+	 */
 	public void setHead(List<GlobalResponseMessageBody> head) {
 		this.head = head;
 	}
 
+	/**
+	 * Returns the options.
+	 *
+	 * @return the options
+	 */
 	public List<GlobalResponseMessageBody> getOptions() {
 		return options;
 	}
 
+	/**
+	 * Sets the options.
+	 *
+	 * @param options the options
+	 */
 	public void setOptions(List<GlobalResponseMessageBody> options) {
 		this.options = options;
 	}
 
+	/**
+	 * Returns the trace.
+	 *
+	 * @return the trace
+	 */
 	public List<GlobalResponseMessageBody> getTrace() {
 		return trace;
 	}
 
+	/**
+	 * Sets the trace.
+	 *
+	 * @param trace the trace
+	 */
 	public void setTrace(List<GlobalResponseMessageBody> trace) {
 		this.trace = trace;
 	}
 
 	@Override
+	/**
+	 * to String.
+	 *
+	 * @return the result
+	 */
 	public String toString() {
 		return "GlobalResponseMessage{post=" + post + ", get=" + get + ", put=" + put + ", patch=" + patch
 				+ ", delete=" + delete + ", head=" + head + ", options=" + options + ", trace=" + trace + "}";

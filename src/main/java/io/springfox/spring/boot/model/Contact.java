@@ -36,31 +36,66 @@ public class Contact {
 	 **/
 	private String email = "";
 
+	/**
+	 * Returns the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * Returns the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email.
+	 *
+	 * @param email the email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	@Override
+	/**
+	 * to String.
+	 *
+	 * @return the result
+	 */
 	public String toString() {
 		return "Contact{name='" + name + "', url='" + url + "', email='" + email + "'}";
 	}

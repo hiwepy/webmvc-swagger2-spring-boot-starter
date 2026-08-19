@@ -38,31 +38,66 @@ public class GlobalResponseMessageBody {
 	 **/
 	private String modelRef;
 
+	/**
+	 * Returns the code.
+	 *
+	 * @return the code
+	 */
 	public int getCode() {
 		return code;
 	}
 
+	/**
+	 * Sets the code.
+	 *
+	 * @param code the code
+	 */
 	public void setCode(int code) {
 		this.code = code;
 	}
 
+	/**
+	 * Returns the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Returns the model ref.
+	 *
+	 * @return the model ref
+	 */
 	public String getModelRef() {
 		return modelRef;
 	}
 
+	/**
+	 * Sets the model ref.
+	 *
+	 * @param modelRef the model ref
+	 */
 	public void setModelRef(String modelRef) {
 		this.modelRef = modelRef;
 	}
 
 	@Override
+	/**
+	 * to String.
+	 *
+	 * @return the result
+	 */
 	public String toString() {
 		return "GlobalResponseMessageBody{code=" + code + ", message='" + message + "', modelRef='" + modelRef + "'}";
 	}
